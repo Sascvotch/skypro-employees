@@ -1,4 +1,5 @@
 package pro.sky.skypro_employees;
+
 import java.util.Objects;
 
 public class Employee {
@@ -16,12 +17,15 @@ public class Employee {
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -42,7 +46,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                ", name='" + firstName + '\'' +
+                "name='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
