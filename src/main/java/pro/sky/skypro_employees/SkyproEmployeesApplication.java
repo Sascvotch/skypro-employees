@@ -10,9 +10,7 @@ public class SkyproEmployeesApplication {
 
 		SpringApplication.run(SkyproEmployeesApplication.class, args);
 
-		//for (int i=0; i< employee.length; i++ ) {
-		//	System.out.println(employee[i]);
-	//	}
+
 
 	}
 
