@@ -2,85 +2,44 @@ package pro.sky.skypro_employees;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    List<Employee> employee = new ArrayList<>();
+     Map <String,Employee> employee = new HashMap<>();
+    int size=0;
+    int i=0;
 
-    public List<Employee> employeeListEmp() {
-        return employee;
-
-    }
-
-    public Employee employeeAdd(String firstName, String lastName) {
-        Employee employeeAdd = new Employee(firstName, lastName);
-
-        for (int i = 0; i < employee.size(); i++) {
-            if (employee.get(i).equals(employeeAdd)) {
-                throw new EmployeeAlreadyExists();
-            }
-        }
-        employee.add(employeeAdd);
+    public Employee employeeAdd ( String firstName, String lastName){
+        Employee employeeAdd= new Employee(firstName,lastName);
+       if (employee.containsKey(firstName+lastName)){
+           throw new EmployeeAlreadyExists();
+       }
+        employee.put(firstName+lastName,employeeAdd);
         System.out.println("Сотрудник " + firstName + " " + lastName + " добавлен.");
         return employeeAdd;
     }
 
-    public Employee employeeFind(String firstName, String lastName) {
-        Boolean find = false;
-        Employee employeeFind = new Employee(firstName, lastName);
-        for (int i = 0; i < employee.size(); i++) {
-            if (!find) {
-                if (employee.get(i).equals(employeeFind)) {
-                    find = true;
-                }
-            }
-        }
-        if (!find) {
+    public Employee employeeFind (String firstName, String lastName) {
+        Employee employeeFind=new Employee(firstName, lastName);
+        if (!employee.containsKey(firstName+lastName)) {
             throw new EmployeeIsAbsent();
         }
-        System.out.println("Сотрудник " + firstName + " " + lastName + " найден.");
-        return employeeFind;
-    }
-
-    public Employee employeeContains(String firstName, String lastName) {
-        Boolean find = false;
-        Employee employeeFind = new Employee(firstName, lastName);
-
-        if (employee.contains(employeeFind)) {
-            find = true;
+            System.out.println("Сотрудник " + firstName + " " + lastName + " найден.");
+            return employeeFind;
         }
 
 
-        if (!find) {
+    public Employee employeeRemove (String firstName, String lastName) {
+        Employee employeeRemove=new Employee(firstName, lastName);
+        if (!employee.containsKey(firstName+lastName)) {
             throw new EmployeeIsAbsent();
         }
-        System.out.println("Сотрудник " + firstName + " " + lastName + " найден.");
-        return employeeFind;
+       employee.remove(firstName+lastName);
+        System.out.println("Сотрудник " + firstName + " " + lastName + " удален.");
+        return employeeRemove ;
     }
 
-    public Employee employeeRemove(String firstName, String lastName) {
-        Boolean find = false;
-        Employee employeeRemove = new Employee(firstName, lastName);
-        for (int i = 0; i < employee.size(); i++) {
-            if (!find) {
-                if (employee.get(i).equals(employeeRemove)) {
-                    employee.remove(i);
-                    find = true;
-                    System.out.println("Сотрудник " + firstName + " " + lastName + " удален.");
-                }
-            }
-        }
-        if (!find) {
-            throw new EmployeeIsAbsent();
-        }
-        return employeeRemove;
-    }
-
-    @Override
-    public String employeeList() {
-        return employee.toString();
-    }
 
 }
