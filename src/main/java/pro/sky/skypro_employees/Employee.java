@@ -3,16 +3,18 @@ import java.util.Objects;
 
 public class Employee {
 
+    private final String key;
     private String firstName;
     private String lastName;
 
-    public Employee(String firstName, String lastName) {
+    public Employee( String firstName, String lastName) {
 
         this.firstName = firstName;
         this.lastName = lastName;
+        this.key= firstName + lastName;
     }
 
-
+    public String getKey() {return key;}
     public String getFirstName() {
         return firstName;
     }
@@ -31,17 +33,19 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
+        return key.equals(employee.key);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(key,firstName, lastName);
     }
 
     @Override
     public String toString() {
         return "Employee{" +
+                ", key='" + key + '\'' +
                 ", name='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
