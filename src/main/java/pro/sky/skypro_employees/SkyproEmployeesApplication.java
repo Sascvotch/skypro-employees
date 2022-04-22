@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SkyproEmployeesApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(SkyproEmployeesApplication.class, args);
+        SpringApplication.run(SkyproEmployeesApplication.class, args);
 
-	}
+    }
 
 }
