@@ -1,4 +1,4 @@
-package pro.sky.skypro_employees;
+package pro.sky.skypro_employees.data;
 
 import java.util.Objects;
 
@@ -8,11 +8,9 @@ public class Employee {
     private String lastName;
 
     public Employee(String firstName, String lastName) {
-
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
 
     public String getFirstName() {
         return firstName;
@@ -36,6 +34,7 @@ public class Employee {
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
         return firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
+
     }
 
     @Override
@@ -46,7 +45,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "name='" + firstName + '\'' +
+                ", name='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
