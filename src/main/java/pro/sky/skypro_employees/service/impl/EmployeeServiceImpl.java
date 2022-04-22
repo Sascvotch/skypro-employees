@@ -5,6 +5,7 @@ import pro.sky.skypro_employees.data.Employee;
 import pro.sky.skypro_employees.exceptions.EmployeeAlreadyExists;
 import pro.sky.skypro_employees.exceptions.EmployeeIsAbsent;
 import pro.sky.skypro_employees.service.EmployeeService;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,17 +36,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRemove;
     }
 
-    public Void EmployeeIsAbsent(Map employee, Employee currentEmployee) {
+    public void EmployeeIsAbsent(Map employee, Employee currentEmployee) {
         if (!employee.containsKey(currentEmployee.getFirstName() + currentEmployee.getLastName())) {
             throw new EmployeeIsAbsent();
         }
-        return null;
     }
 
-    public Void EmployeeAlreadyExists(Map employee, Employee currentEmployee) {
+    public void EmployeeAlreadyExists(Map employee, Employee currentEmployee) {
         if (employee.containsKey(currentEmployee.getFirstName() + currentEmployee.getLastName())) {
             throw new EmployeeAlreadyExists();
         }
-        return null;
     }
 }

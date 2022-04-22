@@ -11,7 +11,7 @@ public interface EmployeeService {
 
     Employee employeeRemove(String firstName, String lastName);
 
-    Void EmployeeIsAbsent(Map employee, Employee currentEmployee);
+    void EmployeeIsAbsent(Map employee, Employee currentEmployee);
 
-    Void EmployeeAlreadyExists(Map employee, Employee currentEmployee);
+    void EmployeeAlreadyExists(Map employee, Employee currentEmployee);
 }
