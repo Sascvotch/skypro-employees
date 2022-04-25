@@ -6,10 +6,31 @@ public class Employee {
 
     private String firstName;
     private String lastName;
+    public int numberDepartment;
+    public double salary;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int numberDepartment, double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.numberDepartment = numberDepartment;
+        this.salary = salary;
+    }
+
+
+    public int getNumberDepartment() {
+        return numberDepartment;
+    }
+
+    public void setNumberDepartment(int numberDepartment) {
+        this.numberDepartment = numberDepartment;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
     public String getFirstName() {
