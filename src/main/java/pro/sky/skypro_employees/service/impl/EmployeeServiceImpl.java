@@ -1,5 +1,6 @@
 package pro.sky.skypro_employees.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.skypro_employees.data.Employee;
 import pro.sky.skypro_employees.exceptions.EmployeeAlreadyExists;
@@ -25,7 +26,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     ));
 
     public Employee employeeAdd(String firstName, String lastName, int numberDepartment, double salary) {
+        if (!StringUtils.isAlpha(firstName)||(!StringUtils.isAlpha(lastName))) throw new EmployeeAlreadyExists();
         Employee employeeAdd;
+        firstName=StringUtils.capitalize(StringUtils.lowerCase(firstName));
+        lastName=StringUtils.capitalize(StringUtils.lowerCase(lastName));
         employeeAdd = new Employee(firstName, lastName, numberDepartment, salary);
         EmployeeAlreadyExists(employee, employeeAdd);
         employee.put(firstName + lastName, employeeAdd);
