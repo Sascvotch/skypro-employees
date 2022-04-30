@@ -1,9 +1,11 @@
 package pro.sky.skypro_employees.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.skypro_employees.data.Employee;
 import pro.sky.skypro_employees.exceptions.EmployeeAlreadyExists;
 import pro.sky.skypro_employees.exceptions.EmployeeIsAbsent;
+import pro.sky.skypro_employees.exceptions.InvalidArgumentException;
 import pro.sky.skypro_employees.service.EmployeeService;
 
 import java.util.*;
@@ -24,12 +26,17 @@ public class EmployeeServiceImpl implements EmployeeService {
             new Employee("Ivan4", "Ivanov", 2, 150000)
     ));
 
-    public Employee employeeAdd(String firstName, String lastName, int numberDepartment, double salary) {
+    public Employee employeeAdd(String firstName, String lastName, int numberDepartment, double salary)  {
+       String firstNameForAdd =firstName;
+       String lastNameForAdd=lastName;
+        if (!StringUtils.isAlpha(firstNameForAdd)||(!StringUtils.isAlpha(lastNameForAdd))) throw new InvalidArgumentException();
         Employee employeeAdd;
-        employeeAdd = new Employee(firstName, lastName, numberDepartment, salary);
+        firstNameForAdd=StringUtils.capitalize(StringUtils.lowerCase(firstNameForAdd));
+        lastNameForAdd=StringUtils.capitalize(StringUtils.lowerCase(lastNameForAdd));
+        employeeAdd = new Employee(firstNameForAdd, lastNameForAdd, numberDepartment, salary);
         EmployeeAlreadyExists(employee, employeeAdd);
-        employee.put(firstName + lastName, employeeAdd);
-        System.out.println("Сотрудник " + firstName + " " + lastName + " добавлен.");
+        employee.put(firstNameForAdd + lastNameForAdd, employeeAdd);
+        System.out.println("Сотрудник " + firstNameForAdd + " " + lastNameForAdd + " добавлен.");
         return employeeAdd;
     }
 
