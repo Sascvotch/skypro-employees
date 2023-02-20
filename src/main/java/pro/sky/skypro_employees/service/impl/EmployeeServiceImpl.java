@@ -27,21 +27,23 @@ public class EmployeeServiceImpl implements EmployeeService {
             new Employee("Ivan4", "Ivanov", 2, 150000)
     ));
 
-   public Map<String,Employee>  employeeGetAll() {
-     //  List<Employee> employeeGetAll = new List<Employee>(employee.values()) ;
-       return employee;
-   }
-    public List<Employee>  employeeGetAllList() {
+    public Map<String, Employee> employeeGetAll() {
+        return Collections.unmodifiableMap(employee);
+    }
+
+    public List<Employee> employeeGetAllList() {
         return new ArrayList<Employee>(employee.values());
     }
-    public Employee employeeAdd(String firstName, String lastName, int numberDepartment, double salary)  {
-       String firstNameForAdd =firstName;
-       String lastNameForAdd=lastName;
 
-        if (!StringUtils.isAlpha(firstNameForAdd)||(!StringUtils.isAlpha(lastNameForAdd))) throw new InvalidArgumentException();
+    public Employee employeeAdd(String firstName, String lastName, int numberDepartment, double salary) {
+        String firstNameForAdd = firstName;
+        String lastNameForAdd = lastName;
+
+        if (!StringUtils.isAlpha(firstNameForAdd) || (!StringUtils.isAlpha(lastNameForAdd)))
+            throw new InvalidArgumentException();
         Employee employeeAdd;
-        firstNameForAdd=StringUtils.capitalize(StringUtils.lowerCase(firstNameForAdd));
-        lastNameForAdd=StringUtils.capitalize(StringUtils.lowerCase(lastNameForAdd));
+        firstNameForAdd = StringUtils.capitalize(StringUtils.lowerCase(firstNameForAdd));
+        lastNameForAdd = StringUtils.capitalize(StringUtils.lowerCase(lastNameForAdd));
         employeeAdd = new Employee(firstNameForAdd, lastNameForAdd, numberDepartment, salary);
         EmployeeAlreadyExists(employee, employeeAdd);
         employee.put(firstNameForAdd + lastNameForAdd, employeeAdd);
@@ -62,6 +64,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.remove(firstName + lastName);
         System.out.println("Сотрудник " + firstName + " " + lastName + " удален.");
         return employeeRemove;
+    }
+
+    public void employeeRemoveAll() {
+        employee.clear();
     }
 
     public void EmployeeIsAbsent(Map employee, Employee currentEmployee) {

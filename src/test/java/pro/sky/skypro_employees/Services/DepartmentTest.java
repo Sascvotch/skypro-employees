@@ -5,16 +5,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pro.sky.skypro_employees.data.Employee;
 import pro.sky.skypro_employees.service.impl.DepartmentServiceImpl;
 import pro.sky.skypro_employees.service.impl.EmployeeServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import java.util.Map;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
+import static pro.sky.skypro_employees.Services.DepartmentTestConstant.*;
 
 @ExtendWith(MockitoExtension.class)
 public class DepartmentTest {
@@ -26,28 +23,53 @@ public class DepartmentTest {
     private DepartmentServiceImpl departmentService;
 
     @Test
-    public void EmployeeWithMinSalaryByDepartment() {
-
-      final List < Employee> employee= List.of(
-
-                new Employee("Ivan", "Ivanov", 1, 100000),
-
-                new Employee("Petr", "Petrov", 2, 100000),
-
-                new Employee("Sergey", "Sergeev", 2, 120000)
-
-        );
-        when(employeeService.employeeGetAllList())
-                .thenReturn(employee);
-        Map<String, Employee> expected = Map.of(
-                employeeService.employeeGetAllList().get(1).getFirstName()
-                        + employeeService.employeeGetAllList().get(1).getLastName(),
-                employeeService.employeeGetAllList().get(1));
-
-        Map.Entry<String, Employee> actual = departmentService.minSalaryDepartment(1);
-        assertEquals(expected, actual);
-
+    public void getEmployeeDepartmentTest() {
+        assertNotNull(employeeService.employeeGetAll());
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAP);
+        assertEquals(EMPLOYEEMAPOFDEPARTMENT, departmentService.getEmployeeDepartment(NUMBERDEPARTMENT));
+        assertEquals(EMPLOYEEMAP, departmentService.getEmployeeDepartment(0));
     }
 
+    @Test
+    public void employeeWithMinSalaryByDepartmentTest() {
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAP);
+        assertEquals(EMPLOYEEWITHMINSALARY, departmentService.minSalaryDepartment(NUMBERDEPARTMENT));
+    }
+
+    @Test
+    public void employeeWithMaxSalaryByDepartmentTest() {
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAP);
+        assertEquals(EMPLOYEEWITHMAXSALARY, departmentService.maxSalaryDepartment(NUMBERDEPARTMENT));
+    }
+
+    @Test
+    public void employeeSalaryLessTest() {
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAPOFDEPARTMENT);
+        assertEquals(EMPLOYEEWITHMINSALARY1, departmentService.employeeSalaryLess(LIMITSALARY));
+    }
+
+    @Test
+    public void employeeSalaryMoreTest() {
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAPOFDEPARTMENT);
+        assertEquals(EMPLOYEEWITHMAXSALARY1, departmentService.employeeSalaryMore(LIMITSALARY));
+    }
+
+    @Test
+    public void allSalaryDepartmentTest() {
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAP);
+        assertEquals(SALARYDEPARTMENT, departmentService.allSalaryDepartment(NUMBERDEPARTMENT));
+    }
+
+    @Test
+    public void countEmployeeDepartmentTest() {
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAP);
+        assertEquals(COUNTEMPLOYEEDEPARTMENT, departmentService.countEmployeeDepartment(NUMBERDEPARTMENT));
+    }
+
+    @Test
+    public void averageSalaryDepartment() {
+        when(employeeService.employeeGetAll()).thenReturn(EMPLOYEEMAP);
+        assertEquals(SALARYDEPARTMENT / COUNTEMPLOYEEDEPARTMENT, departmentService.averageSalaryDepartment(NUMBERDEPARTMENT));
+    }
 
 }
